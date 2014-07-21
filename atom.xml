@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Dennis Nguyen]]></title>
+  <link href="http://dennisnguyen.com/atom.xml" rel="self"/>
+  <link href="http://dennisnguyen.com/"/>
+  <updated>2014-07-21T10:29:16-07:00</updated>
+  <id>http://dennisnguyen.com/</id>
+  <author>
+    <name><![CDATA[Dennis Nguyen]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Something Awesome]]></title>
+    <link href="http://dennisnguyen.com/blog/2014/07/17/something-awesome/"/>
+    <updated>2014-07-17T16:52:23-07:00</updated>
+    <id>http://dennisnguyen.com/blog/2014/07/17/something-awesome</id>
+    <content type="html"><![CDATA[<p>hello hello</p>
+]]></content>
+  </entry>
+  
+</feed>
