@@ -1,0 +1,44 @@
+--####################################################################
+--# Export schema-less table from DDB to S3
+--#
+--# Params:
+--#    DYNAMODB_INPUT_TABLE - name of input table
+--#    s3_output_bucket - output bucket s3 path
+--#    DYNAMODB_READ_PERCENT - percent of table RCU to use
+--#    DYNAMODB_ENDPOINT - dynamodb service endpoint to us
+--#    start_date - start date ie) 2014-07-01
+--#    end_date - end date ie) 2014-08-01
+--#    month_date - month date ie) m2014-07
+--#    week_start - week start calculated from start_date ie) w2014-27
+--#    week_end - week end calculated from end_date ie) w2014-33
+--####################################################################
+
+SET dynamodb.endpoint=dynamodb.us-east-1.amazonaws.com;
+SET dynamodb.throughput.read.percent = .4;
+--INCREASES Parallelism across the cluster
+SET mapred.max.split.size=1000000;
+
+-- Drop tables
+DROP table dynamodb_table;
+DROP table s3_table;
+
+--create table from dyno
+CREATE EXTERNAL TABLE dynamodb_table (item map<string,string>)
+STORED BY 'org.apache.hadoop.hive.dynamodb.DynamoDBStorageHandler'
+TBLPROPERTIES ("dynamodb.table.name" = "stats", 
+"dynamodb.throughput.read.percent" = ".4"
+);
+
+-- Create table in S3
+CREATE EXTERNAL TABLE s3_table (item map<string,string>)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '\001'
+MAP KEYS TERMINATED BY '\003'
+LINES TERMINATED BY '\n'
+--specifies location of backup
+LOCATION '${s3_output_bucket}';
+
+-- Load S3 Table with data from DynamoDB  
+INSERT OVERWRITE DIRECTORY '${s3_output_bucket}' SELECT item FROM dynamodb_table WHERE
+(item["date"] BETWEEN '${start_date}' AND '${end_date}') OR
+(item["date"] = '${month_date}') OR
+(item["date"] BETWEEN '${week_start}' AND '${week_end}');
