@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://dennisnguyen.com/sitemap.xml 
+Sitemap: http://dnguy078.github.io/sitemap.xml 

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Dennis Nguyen]]></title>
-  <link href="http://dennisnguyen.com/atom.xml" rel="self"/>
-  <link href="http://dennisnguyen.com/"/>
-  <updated>2014-07-21T10:29:16-07:00</updated>
-  <id>http://dennisnguyen.com/</id>
+  <link href="http://dnguy078.github.io/atom.xml" rel="self"/>
+  <link href="http://dnguy078.github.io/"/>
+  <updated>2014-07-21T11:26:24-07:00</updated>
+  <id>http://dnguy078.github.io/</id>
   <author>
     <name><![CDATA[Dennis Nguyen]]></name>
     
@@ -14,10 +14,19 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Amazon EMR Step Process]]></title>
+    <link href="http://dnguy078.github.io/blog/2014/07/21/amazon-emr-step-process/"/>
+    <updated>2014-07-21T11:12:24-07:00</updated>
+    <id>http://dnguy078.github.io/blog/2014/07/21/amazon-emr-step-process</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Something Awesome]]></title>
-    <link href="http://dennisnguyen.com/blog/2014/07/17/something-awesome/"/>
+    <link href="http://dnguy078.github.io/blog/2014/07/17/something-awesome/"/>
     <updated>2014-07-17T16:52:23-07:00</updated>
-    <id>http://dennisnguyen.com/blog/2014/07/17/something-awesome</id>
+    <id>http://dnguy078.github.io/blog/2014/07/17/something-awesome</id>
     <content type="html"><![CDATA[<p>hello hello</p>
 ]]></content>
   </entry>
