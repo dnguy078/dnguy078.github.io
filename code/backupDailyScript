@@ -26,8 +26,7 @@ DROP table s3_table;
 CREATE EXTERNAL TABLE dynamodb_table (item map<string,string>)
 STORED BY 'org.apache.hadoop.hive.dynamodb.DynamoDBStorageHandler'
 TBLPROPERTIES ("dynamodb.table.name" = "stats", 
-"dynamodb.throughput.read.percent" = ".4"
-);
+"dynamodb.throughput.read.percent" = ".4");
 
 -- Create table in S3
 CREATE EXTERNAL TABLE s3_table (item map<string,string>)
@@ -39,6 +38,4 @@ LOCATION '${s3_output_bucket}';
 
 -- Load S3 Table with data from DynamoDB  
 INSERT OVERWRITE DIRECTORY '${s3_output_bucket}' SELECT item FROM dynamodb_table WHERE
-(item["date"] BETWEEN '${start_date}' AND '${end_date}') OR
-(item["date"] = '${month_date}') OR
-(item["date"] BETWEEN '${week_start}' AND '${week_end}');
+(item["date"] = '${start_date}');
