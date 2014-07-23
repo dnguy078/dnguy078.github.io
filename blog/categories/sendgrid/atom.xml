@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: sendgrid | Dennis Nguyen]]></title>
+  <link href="http://dnguy078.github.io/blog/categories/sendgrid/atom.xml" rel="self"/>
+  <link href="http://dnguy078.github.io/"/>
+  <updated>2014-07-22T23:21:47-07:00</updated>
+  <id>http://dnguy078.github.io/</id>
+  <author>
+    <name><![CDATA[Dennis Nguyen]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Sendgrid New Office]]></title>
+    <link href="http://dnguy078.github.io/blog/2014/07/17/sendgrid-new-office/"/>
+    <updated>2014-07-17T22:56:22-07:00</updated>
+    <id>http://dnguy078.github.io/blog/2014/07/17/sendgrid-new-office</id>
+    <content type="html"><![CDATA[<p>hello</p>
+
+<p><video width='540' height='320' preload='none' controls poster=''><source src='http://dl.dropboxusercontent.com/u/73868732/VID_28160707_112812.mkv">http://dl.dropboxusercontent.com/u/73868732/VID_28160707_112812.mkv</a>' ></video>
+<img class="<a" src="href="http://dl.dropboxusercontent.com/u/73868732/image.jpeg">http://dl.dropboxusercontent.com/u/73868732/image.jpeg</a>"></p>
+]]></content>
+  </entry>
+  
+</feed>
