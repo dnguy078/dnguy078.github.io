@@ -4,7 +4,7 @@
   <title><![CDATA[Dennis Nguyen]]></title>
   <link href="http://dnguy078.github.io/atom.xml" rel="self"/>
   <link href="http://dnguy078.github.io/"/>
-  <updated>2014-07-22T23:21:47-07:00</updated>
+  <updated>2014-07-25T22:49:05-07:00</updated>
   <id>http://dnguy078.github.io/</id>
   <author>
     <name><![CDATA[Dennis Nguyen]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Hadoop Hive]]></title>
+    <link href="http://dnguy078.github.io/blog/2014/07/25/hadoop-hive/"/>
+    <updated>2014-07-25T22:34:17-07:00</updated>
+    <id>http://dnguy078.github.io/blog/2014/07/25/hadoop-hive</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Amazon EMR Step Process]]></title>
@@ -169,7 +178,7 @@ own MapReduce, called EMR, to backup these databases.</p>
 
 <p>Tomorrow, I will be continue to work on the dynoDB and S3 databases. I will also
 learn about using Chef&rsquo;s Cookbook. First day was amazing. Everyone is friendly,
-hard working, and fun. Heres to a great summer.hello</p>
+hard working, and fun. Heres to a great summer!</p>
 ]]></content>
   </entry>
   
