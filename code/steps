@@ -1,0 +1,54 @@
+private static RunJobFlowResult executeHiveScript(String dir, String startDate, String endDate, String monthDate, String weekStart, String weekEnd)
+{
+  StepFactory stepFactory = new StepFactory();
+
+  StepConfig enabledebugging = new StepConfig()
+         .withName("Enable debugging")
+         .withActionOnFailure("TERMINATE_JOB_FLOW")
+         .withHadoopJarStep(stepFactory.newEnableDebuggingStep());
+
+  StepConfig installHive = new StepConfig()
+         .withName("Install Hive")
+         .withActionOnFailure("TERMINATE_JOB_FLOW")
+         .withHadoopJarStep(stepFactory.newInstallHiveStep());
+  
+  
+  HadoopJarStepConfig customJarStep = new HadoopJarStepConfig("s3:testJarPath"); 
+  customJarStep.withArgs("1000"); 
+  
+  
+ StepConfig setReadCap = new StepConfig()
+ 			.withName("Setting up Read Capacity")
+ 			.withActionOnFailure("TERMINATE_JOB_FLOW")
+ 			.withHadoopJarStep(customJarStep); 
+  
+ StepConfig hiveScript = new StepConfig().withName("Hive Script")
+         .withActionOnFailure("TERMINATE_JOB_FLOW")
+         .withHadoopJarStep(stepFactory.newRunHiveScriptStep("s3://testPathToHiveScript/testScript",
+      		   "-d","s3_output_bucket=s3://testPathtoS3Dir" + dir ,
+      		   "-d", "start_date={\"s\":\""  + startDate + "\"}",
+      		   "-d", "end_date={\"s\":\"" + endDate + "\"}", 
+      		   "-d", "month_date={\"s\":\""+ monthDate +"\"}",
+      		   "-d","week_start={\"s\":\"" + weekStart + "\"}",
+      		   "-d","week_end={\"s\":\"" + weekEnd  +"\"}")
+      		   );
+     
+     
+ RunJobFlowRequest request = new RunJobFlowRequest()
+         .withName("Month backup test  hadoop version for (m1.large) Storage throughput 1.0 : " + monthDate)
+         .withSteps(enabledebugging, installHive, setReadCap , hiveScript)
+         .withLogUri("s3://pathtoLogfiles" + dir)
+         .withInstances(new JobFlowInstancesConfig()
+         		.withEc2KeyName("fakeec2key")
+         		//1.0.3 works
+         		.withHadoopVersion("2.4.0")
+         		.withInstanceCount(41)
+         		.withKeepJobFlowAliveWhenNoSteps(false)
+         		.withMasterInstanceType("m1.large")
+         		.withSlaveInstanceType("m1.large")
+      		 );
+ 
+ 
+ RunJobFlowResult result = emr.runJobFlow(request);
+ return result; 
+}

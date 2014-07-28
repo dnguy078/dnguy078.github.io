@@ -110,7 +110,7 @@ it with Hadoop Hive. The java application allows me to run the hive script. In
 addition, I wrote a cronjob to allow the java application to be executed daily
 to allow for daily backups for the dynamodb table.</p>
 
-<figure class='code'><figcaption><span> (backupDailyScript)</span> <a href='/code/backupDailyScript'>download</a></figcaption>
+<figure class='code'><figcaption><span> (steps)</span> <a href='/code/steps'>download</a></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -152,47 +152,73 @@ to allow for daily backups for the dynamodb table.</p>
 <span class='line-number'>39</span>
 <span class='line-number'>40</span>
 <span class='line-number'>41</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>--####################################################################
-</span><span class='line'>--# Export schema-less table from DDB to S3
-</span><span class='line'>--#
-</span><span class='line'>--# Params:
-</span><span class='line'>--#    DYNAMODB_INPUT_TABLE - name of input table
-</span><span class='line'>--#    s3_output_bucket - output bucket s3 path
-</span><span class='line'>--#    DYNAMODB_READ_PERCENT - percent of table RCU to use
-</span><span class='line'>--#    DYNAMODB_ENDPOINT - dynamodb service endpoint to us
-</span><span class='line'>--#    start_date - start date ie) 2014-07-01
-</span><span class='line'>--#    end_date - end date ie) 2014-08-01
-</span><span class='line'>--#    month_date - month date ie) m2014-07
-</span><span class='line'>--#    week_start - week start calculated from start_date ie) w2014-27
-</span><span class='line'>--#    week_end - week end calculated from end_date ie) w2014-33
-</span><span class='line'>--####################################################################
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'><span class="n">private</span> <span class="k">static</span> <span class="n">RunJobFlowResult</span> <span class="nf">executeHiveScript</span><span class="p">(</span><span class="n">String</span> <span class="n">dir</span><span class="p">,</span> <span class="n">String</span> <span class="n">startDate</span><span class="p">,</span> <span class="n">String</span> <span class="n">endDate</span><span class="p">,</span> <span class="n">String</span> <span class="n">monthDate</span><span class="p">,</span> <span class="n">String</span> <span class="n">weekStart</span><span class="p">,</span> <span class="n">String</span> <span class="n">weekEnd</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="n">StepFactory</span> <span class="n">stepFactory</span> <span class="o">=</span> <span class="n">new</span> <span class="n">StepFactory</span><span class="p">();</span>
 </span><span class='line'>
-</span><span class='line'>SET dynamodb.endpoint=dynamodb.us-east-1.amazonaws.com;
-</span><span class='line'>SET dynamodb.throughput.read.percent = .4;
-</span><span class='line'>--INCREASES Parallelism across the cluster
-</span><span class='line'>SET mapred.max.split.size=1000000;
+</span><span class='line'>  <span class="n">StepConfig</span> <span class="n">enabledebugging</span> <span class="o">=</span> <span class="n">new</span> <span class="n">StepConfig</span><span class="p">()</span>
+</span><span class='line'>         <span class="p">.</span><span class="n">withName</span><span class="p">(</span><span class="s">&quot;Enable debugging&quot;</span><span class="p">)</span>
+</span><span class='line'>         <span class="p">.</span><span class="n">withActionOnFailure</span><span class="p">(</span><span class="s">&quot;TERMINATE_JOB_FLOW&quot;</span><span class="p">)</span>
+</span><span class='line'>         <span class="p">.</span><span class="n">withHadoopJarStep</span><span class="p">(</span><span class="n">stepFactory</span><span class="p">.</span><span class="n">newEnableDebuggingStep</span><span class="p">());</span>
 </span><span class='line'>
-</span><span class='line'>-- Drop tables
-</span><span class='line'>DROP table dynamodb_table;
-</span><span class='line'>DROP table s3_table;
+</span><span class='line'>  <span class="n">StepConfig</span> <span class="n">installHive</span> <span class="o">=</span> <span class="n">new</span> <span class="n">StepConfig</span><span class="p">()</span>
+</span><span class='line'>         <span class="p">.</span><span class="n">withName</span><span class="p">(</span><span class="s">&quot;Install Hive&quot;</span><span class="p">)</span>
+</span><span class='line'>         <span class="p">.</span><span class="n">withActionOnFailure</span><span class="p">(</span><span class="s">&quot;TERMINATE_JOB_FLOW&quot;</span><span class="p">)</span>
+</span><span class='line'>         <span class="p">.</span><span class="n">withHadoopJarStep</span><span class="p">(</span><span class="n">stepFactory</span><span class="p">.</span><span class="n">newInstallHiveStep</span><span class="p">());</span>
 </span><span class='line'>
-</span><span class='line'>--create table from dyno
-</span><span class='line'>CREATE EXTERNAL TABLE dynamodb_table (item map<span class="nt">&lt;string</span><span class="err">,string</span><span class="nt">&gt;</span>)
-</span><span class='line'>STORED BY &#39;org.apache.hadoop.hive.dynamodb.DynamoDBStorageHandler&#39;
-</span><span class='line'>TBLPROPERTIES (&quot;dynamodb.table.name&quot; = &quot;stats&quot;,
-</span><span class='line'>&quot;dynamodb.throughput.read.percent&quot; = &quot;.4&quot;);
 </span><span class='line'>
-</span><span class='line'>-- Create table in S3
-</span><span class='line'>CREATE EXTERNAL TABLE s3_table (item map<span class="nt">&lt;string</span><span class="err">,string</span><span class="nt">&gt;</span>)
-</span><span class='line'>ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;\001&#39;
-</span><span class='line'>MAP KEYS TERMINATED BY &#39;\003&#39;
-</span><span class='line'>LINES TERMINATED BY &#39;\n&#39;
-</span><span class='line'>--specifies location of backup
-</span><span class='line'>LOCATION &#39;<span class="cp">${</span><span class="n">s3_output_bucket</span><span class="cp">}</span>&#39;;
+</span><span class='line'>  <span class="n">HadoopJarStepConfig</span> <span class="n">customJarStep</span> <span class="o">=</span> <span class="n">new</span> <span class="n">HadoopJarStepConfig</span><span class="p">(</span><span class="s">&quot;s3:testJarPath&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="n">customJarStep</span><span class="p">.</span><span class="n">withArgs</span><span class="p">(</span><span class="s">&quot;1000&quot;</span><span class="p">);</span>
 </span><span class='line'>
-</span><span class='line'>-- Load S3 Table with data from DynamoDB
-</span><span class='line'>INSERT OVERWRITE DIRECTORY &#39;<span class="cp">${</span><span class="n">s3_output_bucket</span><span class="cp">}</span>&#39; SELECT item FROM dynamodb_table WHERE
-</span><span class='line'>(item[&quot;date&quot;] = &#39;<span class="cp">${</span><span class="n">start_date</span><span class="cp">}</span>&#39;);
+</span><span class='line'>
+</span><span class='line'> <span class="n">StepConfig</span> <span class="n">setReadCap</span> <span class="o">=</span> <span class="n">new</span> <span class="n">StepConfig</span><span class="p">()</span>
+</span><span class='line'>          <span class="p">.</span><span class="n">withName</span><span class="p">(</span><span class="s">&quot;Setting up Read Capacity&quot;</span><span class="p">)</span>
+</span><span class='line'>          <span class="p">.</span><span class="n">withActionOnFailure</span><span class="p">(</span><span class="s">&quot;TERMINATE_JOB_FLOW&quot;</span><span class="p">)</span>
+</span><span class='line'>          <span class="p">.</span><span class="n">withHadoopJarStep</span><span class="p">(</span><span class="n">customJarStep</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'> <span class="n">StepConfig</span> <span class="n">hiveScript</span> <span class="o">=</span> <span class="n">new</span> <span class="n">StepConfig</span><span class="p">().</span><span class="n">withName</span><span class="p">(</span><span class="s">&quot;Hive Script&quot;</span><span class="p">)</span>
+</span><span class='line'>         <span class="p">.</span><span class="n">withActionOnFailure</span><span class="p">(</span><span class="s">&quot;TERMINATE_JOB_FLOW&quot;</span><span class="p">)</span>
+</span><span class='line'>         <span class="p">.</span><span class="n">withHadoopJarStep</span><span class="p">(</span><span class="n">stepFactory</span><span class="p">.</span><span class="n">newRunHiveScriptStep</span><span class="p">(</span><span class="s">&quot;s3://testPathToHiveScript/testScript&quot;</span><span class="p">,</span>
+</span><span class='line'>                 <span class="s">&quot;-d&quot;</span><span class="p">,</span><span class="s">&quot;s3_output_bucket=s3://testPathtoS3Dir&quot;</span> <span class="o">+</span> <span class="n">dir</span> <span class="p">,</span>
+</span><span class='line'>                 <span class="s">&quot;-d&quot;</span><span class="p">,</span> <span class="s">&quot;start_date={</span><span class="se">\&quot;</span><span class="s">s</span><span class="se">\&quot;</span><span class="s">:</span><span class="se">\&quot;</span><span class="s">&quot;</span>  <span class="o">+</span> <span class="n">startDate</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">}&quot;</span><span class="p">,</span>
+</span><span class='line'>                 <span class="s">&quot;-d&quot;</span><span class="p">,</span> <span class="s">&quot;end_date={</span><span class="se">\&quot;</span><span class="s">s</span><span class="se">\&quot;</span><span class="s">:</span><span class="se">\&quot;</span><span class="s">&quot;</span> <span class="o">+</span> <span class="n">endDate</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">}&quot;</span><span class="p">,</span>
+</span><span class='line'>                 <span class="s">&quot;-d&quot;</span><span class="p">,</span> <span class="s">&quot;month_date={</span><span class="se">\&quot;</span><span class="s">s</span><span class="se">\&quot;</span><span class="s">:</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="o">+</span> <span class="n">monthDate</span> <span class="o">+</span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">}&quot;</span><span class="p">,</span>
+</span><span class='line'>                 <span class="s">&quot;-d&quot;</span><span class="p">,</span><span class="s">&quot;week_start={</span><span class="se">\&quot;</span><span class="s">s</span><span class="se">\&quot;</span><span class="s">:</span><span class="se">\&quot;</span><span class="s">&quot;</span> <span class="o">+</span> <span class="n">weekStart</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">}&quot;</span><span class="p">,</span>
+</span><span class='line'>                 <span class="s">&quot;-d&quot;</span><span class="p">,</span><span class="s">&quot;week_end={</span><span class="se">\&quot;</span><span class="s">s</span><span class="se">\&quot;</span><span class="s">:</span><span class="se">\&quot;</span><span class="s">&quot;</span> <span class="o">+</span> <span class="n">weekEnd</span>  <span class="o">+</span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">}&quot;</span><span class="p">)</span>
+</span><span class='line'>                 <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'> <span class="n">RunJobFlowRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">new</span> <span class="n">RunJobFlowRequest</span><span class="p">()</span>
+</span><span class='line'>         <span class="p">.</span><span class="n">withName</span><span class="p">(</span><span class="s">&quot;Month backup test  hadoop version for (m1.large) Storage throughput 1.0 : &quot;</span> <span class="o">+</span> <span class="n">monthDate</span><span class="p">)</span>
+</span><span class='line'>         <span class="p">.</span><span class="n">withSteps</span><span class="p">(</span><span class="n">enabledebugging</span><span class="p">,</span> <span class="n">installHive</span><span class="p">,</span> <span class="n">setReadCap</span> <span class="p">,</span> <span class="n">hiveScript</span><span class="p">)</span>
+</span><span class='line'>         <span class="p">.</span><span class="n">withLogUri</span><span class="p">(</span><span class="s">&quot;s3://pathtoLogfiles&quot;</span> <span class="o">+</span> <span class="n">dir</span><span class="p">)</span>
+</span><span class='line'>         <span class="p">.</span><span class="n">withInstances</span><span class="p">(</span><span class="n">new</span> <span class="n">JobFlowInstancesConfig</span><span class="p">()</span>
+</span><span class='line'>              <span class="p">.</span><span class="n">withEc2KeyName</span><span class="p">(</span><span class="s">&quot;fakeec2key&quot;</span><span class="p">)</span>
+</span><span class='line'>              <span class="c1">//1.0.3 works</span>
+</span><span class='line'>              <span class="p">.</span><span class="n">withHadoopVersion</span><span class="p">(</span><span class="s">&quot;2.4.0&quot;</span><span class="p">)</span>
+</span><span class='line'>              <span class="p">.</span><span class="n">withInstanceCount</span><span class="p">(</span><span class="mi">41</span><span class="p">)</span>
+</span><span class='line'>              <span class="p">.</span><span class="n">withKeepJobFlowAliveWhenNoSteps</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span>
+</span><span class='line'>              <span class="p">.</span><span class="n">withMasterInstanceType</span><span class="p">(</span><span class="s">&quot;m1.large&quot;</span><span class="p">)</span>
+</span><span class='line'>              <span class="p">.</span><span class="n">withSlaveInstanceType</span><span class="p">(</span><span class="s">&quot;m1.large&quot;</span><span class="p">)</span>
+</span><span class='line'>               <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'> <span class="n">RunJobFlowResult</span> <span class="n">result</span> <span class="o">=</span> <span class="n">emr</span><span class="p">.</span><span class="n">runJobFlow</span><span class="p">(</span><span class="n">request</span><span class="p">);</span>
+</span><span class='line'> <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -241,8 +267,6 @@ to allow for daily backups for the dynamodb table.</p>
         <a class="basic-alignment left articlenav" href="/blog/2014/07/17/sendgrid-new-office/" title="Previous Post: Sendgrid New Office">&laquo; Sendgrid New Office</a>
       
       
-        <a class="basic-alignment right articlenav" href="/blog/2014/07/25/hadoop-hive/" title="Next Post: Hadoop Hive">Hadoop Hive &raquo;</a>
-      
     </p>
   </footer>
 </article>
@@ -275,10 +299,6 @@ to allow for daily backups for the dynamodb table.</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2014/07/25/hadoop-hive/">Hadoop Hive</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2014/07/21/amazon-emr-step-process/">Amazon EMR Step Process</a>
       </li>
     
@@ -287,7 +307,11 @@ to allow for daily backups for the dynamodb table.</p>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/07/17/something-awesome/">Something Awesome</a>
+        <a href="/blog/2014/06/30/hadoop-hive/">Hadoop Hive Backup</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/21/something-awesome/">Something Awesome!</a>
       </li>
     
   </ul>
