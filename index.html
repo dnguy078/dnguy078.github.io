@@ -9,8 +9,8 @@
   <meta name="author" content="Dennis Nguyen">
 
   
-  <meta name="description" content="I spent the last few days learning about Hadoop Hive.
-">
+  <meta name="description" content="I wrote a hive script to backup an Amazon dynamodb table to an Amazon S3 table a
+few weeks ago. The dynamodb table contained over 8 billion log &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,44 +73,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/blog/2014/07/28/hadoop-hive/">Hadoop Hive</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-28T14:31:58-07:00" pubdate data-updated="true">Jul 28<sup>th</sup>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I spent the last few days learning about Hadoop Hive.</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -444,6 +406,63 @@ to allow for daily backups for the dynamodb table.</p>
   <header>
     
       <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2014/06/25/hadoop-hive/">Hadoop Hive</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-25T14:31:58-07:00" pubdate data-updated="true">Jun 25<sup>th</sup>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I spent the last few days learning about Hadoop Hive. I&rsquo;ll give a brief summary
+of what I&rsquo;ve learned about Hadoop Hive.</p>
+
+<p>Hive is a data warehouse system for Hadoop.  allows for analysis of large datasets stored in Hadoop&rsquo;s HDFS (Hadoop Distributed File System). It provides
+an SQL-like language for querying data called HiveQL. When you execute a querying with Hive, the query gets abstracted into MapReduce jobs that could be executed across a cluster of computers.</p>
+
+<p>Why Hive?
+Hive allows for developers to write UDF (User Defined Functions). UDFs allows
+you to write simple scripts written in Java or Python that control the Map
+Reduce transformation stages. It can difficult to write MapReduce jobs in Java.
+Hive makes it easier to query and analyse large datasets. Hive will outperform
+classic databases like PostgreSQL for large datasets over 10GB.</p>
+
+<p>Data can be added to the HDFS and you can create an &ldquo;EXTERNAL TABLE&rdquo; from
+multiple sources include Amazon S3 or dynamodb. The &ldquo;EXTERNAL TABLE&rdquo; allows you
+to load database into HDFS to query.</p>
+
+<p>According to HortonWorks, there are works to improve Hive queries by 100x with
+the Stinger project, YARN, and Hadoop 2.0. Certainly these will allow for a
+faster Hive query.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
         <h1 class="entry-title"><a href="/blog/2014/06/21/something-awesome/">Something Awesome!</a></h1>
       
     
@@ -543,10 +562,6 @@ hard working, and fun. Heres to a great summer!</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2014/07/28/hadoop-hive/">Hadoop Hive</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2014/07/21/amazon-emr-step-process/">Amazon EMR Step Process</a>
       </li>
     
@@ -556,6 +571,10 @@ hard working, and fun. Heres to a great summer!</p>
     
       <li class="post">
         <a href="/blog/2014/06/30/hadoop-hive/">Hadoop Hive Backup</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/25/hadoop-hive/">Hadoop Hive</a>
       </li>
     
       <li class="post">
