@@ -4,7 +4,7 @@
   <title><![CDATA[Dennis Nguyen]]></title>
   <link href="http://dnguy078.github.io/atom.xml" rel="self"/>
   <link href="http://dnguy078.github.io/"/>
-  <updated>2014-07-28T14:28:27-07:00</updated>
+  <updated>2014-07-28T14:37:36-07:00</updated>
   <id>http://dnguy078.github.io/</id>
   <author>
     <name><![CDATA[Dennis Nguyen]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Hadoop Hive]]></title>
+    <link href="http://dnguy078.github.io/blog/2014/07/28/hadoop-hive/"/>
+    <updated>2014-07-28T14:31:58-07:00</updated>
+    <id>http://dnguy078.github.io/blog/2014/07/28/hadoop-hive</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Amazon EMR Step Process]]></title>
