@@ -4,7 +4,7 @@
   <title><![CDATA[Dennis Nguyen]]></title>
   <link href="http://dnguy078.github.io/atom.xml" rel="self"/>
   <link href="http://dnguy078.github.io/"/>
-  <updated>2014-07-28T14:42:23-07:00</updated>
+  <updated>2014-07-28T14:50:56-07:00</updated>
   <id>http://dnguy078.github.io/</id>
   <author>
     <name><![CDATA[Dennis Nguyen]]></name>
@@ -18,7 +18,7 @@
     <link href="http://dnguy078.github.io/blog/2014/07/28/hadoop-hive/"/>
     <updated>2014-07-28T14:31:58-07:00</updated>
     <id>http://dnguy078.github.io/blog/2014/07/28/hadoop-hive</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>I spent the last few days learning about Hadoop Hive.</p>
 ]]></content>
   </entry>
   
