@@ -4,7 +4,7 @@
   <title><![CDATA[Dennis Nguyen]]></title>
   <link href="http://dnguy078.github.io/atom.xml" rel="self"/>
   <link href="http://dnguy078.github.io/"/>
-  <updated>2014-07-30T16:04:39-07:00</updated>
+  <updated>2014-08-14T08:23:00-06:00</updated>
   <id>http://dnguy078.github.io/</id>
   <author>
     <name><![CDATA[Dennis Nguyen]]></name>
@@ -14,21 +14,9 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Wise Words Wednesdays]]></title>
-    <link href="http://dnguy078.github.io/blog/2014/07/30/wise-words-wednesdays/"/>
-    <updated>2014-07-30T15:52:39-07:00</updated>
-    <id>http://dnguy078.github.io/blog/2014/07/30/wise-words-wednesdays</id>
-    <content type="html"><![CDATA[<blockquote><p>People naturally fear misfortune and long for good fortune, but if the distinction is carefully studied, misfortune often turns out to be good fortune and good fortune to be misfortune. The wise man learns to meet the changing circumstances of life with an equitable spirit, being neither elated by success nor depressed by failure.</p><footer><strong>Buddha</strong></footer></blockquote>
-
-
-
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[Hive is TOO SLOW]]></title>
     <link href="http://dnguy078.github.io/blog/2014/07/28/hive-is-too-slow/"/>
-    <updated>2014-07-28T17:01:09-07:00</updated>
+    <updated>2014-07-28T18:01:09-06:00</updated>
     <id>http://dnguy078.github.io/blog/2014/07/28/hive-is-too-slow</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve completed the backup/restore project on dynamodb. I&rsquo;ve noticed that the
 Hive queries can take several hours to complete. I&rsquo;ll experiment with launching
@@ -43,7 +31,7 @@ instance that it supposely faster. Kien experimented with the m3.xlarge instance
   <entry>
     <title type="html"><![CDATA[Amazon EMR Step Process]]></title>
     <link href="http://dnguy078.github.io/blog/2014/07/21/amazon-emr-step-process/"/>
-    <updated>2014-07-21T11:12:24-07:00</updated>
+    <updated>2014-07-21T12:12:24-06:00</updated>
     <id>http://dnguy078.github.io/blog/2014/07/21/amazon-emr-step-process</id>
     <content type="html"><![CDATA[<p>I wrote a hive script to backup an Amazon dynamodb table to an Amazon S3 table a
 few weeks ago. The dynamodb table contained over 8 billion log records that span
@@ -173,7 +161,7 @@ to allow for daily backups for the dynamodb table.</p>
   <entry>
     <title type="html"><![CDATA[Sendgrid New Office]]></title>
     <link href="http://dnguy078.github.io/blog/2014/07/17/sendgrid-new-office/"/>
-    <updated>2014-07-17T22:56:22-07:00</updated>
+    <updated>2014-07-17T23:56:22-06:00</updated>
     <id>http://dnguy078.github.io/blog/2014/07/17/sendgrid-new-office</id>
     <content type="html"><![CDATA[<p>hello</p>
 
@@ -185,7 +173,7 @@ to allow for daily backups for the dynamodb table.</p>
   <entry>
     <title type="html"><![CDATA[Hadoop Hive Backup]]></title>
     <link href="http://dnguy078.github.io/blog/2014/06/30/hadoop-hive/"/>
-    <updated>2014-06-30T22:34:17-07:00</updated>
+    <updated>2014-06-30T23:34:17-06:00</updated>
     <id>http://dnguy078.github.io/blog/2014/06/30/hadoop-hive</id>
     <content type="html"><![CDATA[<p>I wrote a Hive script to backup a schema-less dynamodb database to S3.</p>
 
@@ -282,7 +270,7 @@ to allow for daily backups for the dynamodb table.</p>
   <entry>
     <title type="html"><![CDATA[Hadoop Hive]]></title>
     <link href="http://dnguy078.github.io/blog/2014/06/25/hadoop-hive/"/>
-    <updated>2014-06-25T14:31:58-07:00</updated>
+    <updated>2014-06-25T15:31:58-06:00</updated>
     <id>http://dnguy078.github.io/blog/2014/06/25/hadoop-hive</id>
     <content type="html"><![CDATA[<p>I spent the last few days learning about Hadoop Hive. I&rsquo;ll give a brief summary
 of what I&rsquo;ve learned about Hadoop Hive.</p>
@@ -309,7 +297,7 @@ the Stinger initiative, Apache Tez,  YARN, and Hadoop 2.0. Certainly these will 
   <entry>
     <title type="html"><![CDATA[Something Awesome!]]></title>
     <link href="http://dnguy078.github.io/blog/2014/06/21/something-awesome/"/>
-    <updated>2014-06-21T11:12:24-07:00</updated>
+    <updated>2014-06-21T12:12:24-06:00</updated>
     <id>http://dnguy078.github.io/blog/2014/06/21/something-awesome</id>
     <content type="html"><![CDATA[<p>Honest. Hungry. Humble. Happy. These are the four core values that were introduced to
 me on my first day of my summer internship at SendGrid. I hope to live up to
