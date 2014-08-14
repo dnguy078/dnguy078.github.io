@@ -9,8 +9,8 @@
   <meta name="author" content="Dennis Nguyen">
 
   
-  <meta name="description" content="I&rsquo;ve completed the backup/restore project on dynamodb. I&rsquo;ve noticed that the
-Hive queries can take several hours to complete. I&rsquo;ll &hellip;">
+  <meta name="description" content="I wrote a hive script to backup an Amazon dynamodb table to an Amazon S3 table a
+few weeks ago. The dynamodb table contained over 8 billion log &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,50 +73,6 @@ Hive queries can take several hours to complete. I&rsquo;ll &hellip;">
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
-        <h1 class="entry-title"><a href="/blog/2014/07/28/hive-is-too-slow/">Hive Is TOO SLOW</a></h1>
-      
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-28T18:01:09-06:00" pubdate data-updated="true">Jul 28<sup>th</sup>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&rsquo;ve completed the backup/restore project on dynamodb. I&rsquo;ve noticed that the
-Hive queries can take several hours to complete. I&rsquo;ll experiment with launching
-different types of EC2 instances. Currently my application runs on a 40 m1.large
-Hadoop cluster. I&rsquo;ve read several articles that Amazon released a M3 EC2
-instance that it supposely faster. Kien experimented with the m3.xlarge instances and noticed his Hadoop stats jobs completing 1 hour faster than m1.large instances. This is with a reduction in the size of a cluster too. I&rsquo;ve also read thatyou can increase the number of task mappers to increase performance. I will experiment with both options to increase speedups. Speed FTW! :D</p>
-
-<p>SideNote: Stinger Iniative and Tez should contain huge improvements to Hive.</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -605,10 +561,6 @@ hard working, and fun. Heres to a great summer!</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2014/07/28/hive-is-too-slow/">Hive Is TOO SLOW</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2014/07/21/amazon-emr-step-process/">Amazon EMR Step Process</a>
       </li>
     
@@ -622,6 +574,10 @@ hard working, and fun. Heres to a great summer!</p>
     
       <li class="post">
         <a href="/blog/2014/06/25/hadoop-hive/">Hadoop Hive</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/21/something-awesome/">Something Awesome!</a>
       </li>
     
   </ul>

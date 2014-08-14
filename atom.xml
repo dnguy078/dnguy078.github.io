@@ -4,7 +4,7 @@
   <title><![CDATA[Dennis Nguyen]]></title>
   <link href="http://dnguy078.github.io/atom.xml" rel="self"/>
   <link href="http://dnguy078.github.io/"/>
-  <updated>2014-08-14T08:23:00-06:00</updated>
+  <updated>2014-08-14T12:57:21-06:00</updated>
   <id>http://dnguy078.github.io/</id>
   <author>
     <name><![CDATA[Dennis Nguyen]]></name>
@@ -12,21 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Hive is TOO SLOW]]></title>
-    <link href="http://dnguy078.github.io/blog/2014/07/28/hive-is-too-slow/"/>
-    <updated>2014-07-28T18:01:09-06:00</updated>
-    <id>http://dnguy078.github.io/blog/2014/07/28/hive-is-too-slow</id>
-    <content type="html"><![CDATA[<p>I&rsquo;ve completed the backup/restore project on dynamodb. I&rsquo;ve noticed that the
-Hive queries can take several hours to complete. I&rsquo;ll experiment with launching
-different types of EC2 instances. Currently my application runs on a 40 m1.large
-Hadoop cluster. I&rsquo;ve read several articles that Amazon released a M3 EC2
-instance that it supposely faster. Kien experimented with the m3.xlarge instances and noticed his Hadoop stats jobs completing 1 hour faster than m1.large instances. This is with a reduction in the size of a cluster too. I&rsquo;ve also read thatyou can increase the number of task mappers to increase performance. I will experiment with both options to increase speedups. Speed FTW! :D</p>
-
-<p>SideNote: Stinger Iniative and Tez should contain huge improvements to Hive.</p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Amazon EMR Step Process]]></title>
